@@ -1,4 +1,5 @@
 #!/bin/bash
+# Simple TODO list
 
 if [[ ! -f ~/.todo ]]; then
   touch ~/.todo
