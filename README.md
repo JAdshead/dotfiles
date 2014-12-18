@@ -4,15 +4,10 @@ My Dotfiles
 Just source this file in `~/.zshrc`
 
 ```
-export GIT_AUTHOR_NAME='My Name'
-export GIT_AUTHOR_EMAIL='my@name.com'
-export GIT_COMMITTER_NAME='My Name'
-export GIT_COMMITTER_EMAIL='my@name.com'
-
 source ~/.dotfiles/zshrc
 ```
 
-My initial setup my new systems
+Some Initial setup my new systems
 ================================
 
 System Preferences > Security & Privacy > General > Allow Applications downloaded from -> Select Anywhere
