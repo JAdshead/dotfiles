@@ -1,0 +1,44 @@
+# aliases
+
+alias -g DN="&>/dev/null"
+alias -g DNA="&>/dev/null &"
+
+alias -g G="| grep"
+alias -g L="| less"
+alias ls='ls -1GAF'
+alias psg='ps aux | grep'
+alias cwp='coffeewatch public &>/dev/null &'
+
+# GIT
+alias g='git'
+alias gpnm='git push nas master'
+alias glnm='git pull nas master'
+alias gphm='git push heroku master'
+alias glhm='git pull heroku master'
+alias gpgm='git push github master'
+alias glgm='git pull github master'
+alias gpom="git push origin master"
+alias glom="git pull origin master"
+
+# Heroku realtime logs
+alias hl="heroku logs --tail"
+
+alias ru='bundle exec rackup'
+alias dber='dotenv bundle exec rackup'
+
+# aliases for osx
+alias dns='dscacheutil -flushcache'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+
+# Show/hide hidden files in Finder
+alias showhidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidehidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"

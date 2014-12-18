@@ -79,6 +79,9 @@ git_prompt_string() {
 RPS1='$(git_prompt_string)'
 
 
+# source alias
+source "${0:a:h}/aliases"
+
 # Prompt
 autoload -U promptinit && promptinit
 autoload -U colors && colors
@@ -86,30 +89,6 @@ autoload -U colors && colors
 PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%m %{$fg[blue]%}$(git_prompt_info)%{$fg[cyan]%}in%{$fg[magenta]%} %~
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
-
-# aliases
-alias -g DN="&>/dev/null"
-alias -g DNA="&>/dev/null &"
-alias -g G="| grep"
-alias -g L="| less"
-alias ls='ls -1GAF'
-alias psg='ps aux | grep'
-alias ru='bundle exec rackup'
-alias g='git'
-alias gpnm='git push nas master'
-alias glnm='git pull nas master'
-alias gphm='git push heroku master'
-alias glhm='git pull heroku master'
-alias gpgm='git push github master'
-alias glgm='git pull github master'
-alias gpom="git push origin master"
-alias glom="git pull origin master"
-alias cwp='coffeewatch public &>/dev/null &'
-
-alias dber='dotenv bundle exec rackup'
-
-# aliases for osx
-alias dns='dscacheutil -flushcache'
 
 # Helper functions
 grepdir() {
