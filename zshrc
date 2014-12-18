@@ -94,7 +94,7 @@ alias -g G="| grep"
 alias -g L="| less"
 alias ls='ls -1GAF'
 alias psg='ps aux | grep'
-alias ru='rackup'
+alias ru='bundle exec rackup'
 alias g='git'
 alias gpnm='git push nas master'
 alias glnm='git pull nas master'
@@ -105,6 +105,9 @@ alias glgm='git pull github master'
 alias gpom="git push origin master"
 alias glom="git pull origin master"
 alias cwp='coffeewatch public &>/dev/null &'
+
+alias dber='dotenv bundle exec rackup'
+
 # aliases for osx
 alias dns='dscacheutil -flushcache'
 
