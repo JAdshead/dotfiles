@@ -23,6 +23,13 @@ alias glom="git pull origin master"
 # Heroku realtime logs
 alias hl="heroku logs --tail"
 
+
+#Rails
+alias rake="bundle exec rake"
+
+alias be="bundle exec"
+alias rs="bundle exec rails server"
+
 alias ru='bundle exec rackup'
 alias dber='dotenv bundle exec rackup'
 
@@ -33,7 +40,7 @@ alias dns='dscacheutil -flushcache'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
+alias update='sudo softwareupdate -i -a; brew update;echo "\nOutdated:\n";brew outdated; brew upgrade; brew cleanup; npm install npm -g; npm update -g;'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
