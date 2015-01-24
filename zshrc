@@ -12,9 +12,6 @@ zstyle ':completion:*' menu select
 # zmv
 autoload zmv
 
-# ensure ls colors is unset.
-unset LSCOLORS
-
 # Modify the colors and symbols in these variables as desired.
 GIT_PROMPT_SYMBOL="%{$fg[blue]%}GIT"
 GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
@@ -83,14 +80,20 @@ RPS1='$(git_prompt_string)'
 source "${0:a:h}/aliases"
 
 # Prompt
+# ensure ls colors is unset.
+unset LSCOLORS
 autoload -U promptinit && promptinit
 autoload -U colors && colors
 
-PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%m %{$fg[blue]%}$(git_prompt_info)%{$fg[cyan]%}in%{$fg[magenta]%} %~
+PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~%(1j. %{$fg[red]%}%j.)
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 
 # Helper functions
+# Helper functions
+isbin() {
+  which "$1" > /dev/null
+}
 grepdir() {
   grep "$1" * --color -rni
 }
@@ -111,15 +114,6 @@ dotenv() {
     env $(cat .env | grep "^[^#]*=.*" | xargs) "$@"
   fi
 }
-reru() {
-  kill %?rackup
-  rackup DNA
-}
-rerufg() {
-  reru
-  sleep 1
-  fg
-}
 coffeewatch() {
   if [ ! -n "$1" ]; then
     coffee --compile --watch --output js coffee
@@ -130,8 +124,9 @@ coffeewatch() {
   fi
 }
 
+
 # RBENV
-if which rbenv > /dev/null; then
+if isbin rbenv; then
   eval "$(rbenv init -)"
 fi
 

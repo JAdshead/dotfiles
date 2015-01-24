@@ -1,24 +1,38 @@
 #!/bin/zsh
 
-install-dotfile() {
-	if [ -e ~/.$1 ]; then
-		mv ~/.$1 ~/.${1}-backup
-		echo "  --> ~/.$1 was moved to ~/.${1}-backup"
-	fi
-  ln -s ~/.dotfiles/$1 ~/.$1
+ensure-file() {
+  if [[ ! -f $1 ]]; then
+    touch $1
+  fi
 }
 
-install-gitconfig() {
-  install-dotfile gitconfig
+add-zshrc() {
+  ensure-file ~/.zshrc
+  echo "source ~/.dotfiles/zshrc" >> ~/.zshrc
+  echo "" >> ~/.zshrc
+}
+
+add-gitconfig() {
+  ensure-file ~/.gitconfig
+  echo "[include]" >> ~/.gitconfig
+  echo "  path = ~/.dotfiles/gitconfig" >> ~/.gitconfig
+  echo "[user]" >> ~/.gitconfig
+  echo -n "What is your git name? "
+  read yourname
+  echo "  name = $yourname" >> ~/.gitconfig
+  echo -n "What is your git email address? "
+  read youremail
+  echo "  email = $youremail" >> ~/.gitconfig
+  echo "" >> ~/.gitconfig
+}
+
+add-all() {
+  add-zshrc
+  add-gitconfig
 }
 
 install-brew() {
-  ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
-}
-
-clean() {
-  echo "  --> Make sure you want to remove these backup files"
-  rm -i ~/.gitconfig-backup
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 }
 
 $1
