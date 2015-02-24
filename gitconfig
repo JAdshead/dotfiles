@@ -23,4 +23,3 @@
 [core]
   excludesfile = ~/.dotfiles/gitignore
   mergeoptions = --no-edit
-

@@ -1,5 +1,11 @@
 # Bin locations
-export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH
+export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:~/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport:$PATH
+
+
+
+# use vim as the visual editor
+export VISUAL=vim
+export EDITOR=$VISUAL
 
 # opts
 bindkey -e
@@ -76,8 +82,6 @@ git_prompt_string() {
 RPS1='$(git_prompt_string)'
 
 
-# source alias
-source "${0:a:h}/aliases"
 
 # Prompt
 # ensure ls colors is unset.
@@ -124,9 +128,14 @@ coffeewatch() {
   fi
 }
 
-
 # RBENV
-if isbin rbenv; then
-  eval "$(rbenv init -)"
+# load rbenv if available
+if which rbenv &>/dev/null ; then
+  eval "$(rbenv init - --no-rehash)"
 fi
+
+
+# source alias
+source "${0:a:h}/aliases"
+
 

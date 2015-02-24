@@ -15,3 +15,10 @@ session.vim
 # Misc
 .env
 
+db/*.sqlite3
+log/*.log
+rerun.txt
+tags
+tmp/**/*
+!tmp/cache/.keep
+zeus.json

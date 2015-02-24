@@ -32,12 +32,16 @@ alias hl="heroku logs --tail"
 
 #Rails
 alias rake="bundle exec rake"
-
 alias be="bundle exec"
 alias rs="bundle exec rails server"
 
 alias ru='bundle exec rackup'
 alias dber='dotenv bundle exec rackup'
+
+
+#RSPEc 
+alias runspec="bundle exec rspec"
+
 
 # aliases for osx
 alias dns='dscacheutil -flushcache'
