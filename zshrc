@@ -92,7 +92,6 @@ PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %
 
 
 # Helper functions
-# Helper functions
 isbin() {
   which "$1" > /dev/null
 }
@@ -132,6 +131,12 @@ if which rbenv &>/dev/null ; then
   eval "$(rbenv init - --no-rehash)"
 fi
 
+# RBENV
+# load rbenv if available
+if which rbenv &>/dev/null ; then
+  eval "$(rbenv init - --no-rehash)"
+fi
 
 # source alias
 source "${0:a:h}/aliases"
+
