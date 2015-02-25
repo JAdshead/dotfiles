@@ -25,7 +25,7 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
-
+map <Leader>h :nohlsearch<CR>
 
 " Toggle nerdtree with F10
 map <F10> :NERDTreeToggle<CR>
@@ -146,7 +146,7 @@ set t_Co=256
 :set smartcase
 :set ignorecase
 :set noantialias
-
+:set smartcase
 " Color scheme
 colorscheme solarized
 set background=dark
@@ -230,9 +230,7 @@ endif
 au BufWritePre *.rb :%s/\s\+$//e
 
 " cmd n, cmd p for fwd/backward in search
-map <C-n> :cn<CR>
-map <C-p> :cp<CR>
-
+map <C-n> :cn<CR> map <C-p> :cp<CR> 
 " Easy navigation between splits. Instead of ctrl-w + j. Just ctrl-j
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>

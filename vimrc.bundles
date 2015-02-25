@@ -41,6 +41,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'henrik/vim-qargs'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'slim-template/vim-slim.git'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
