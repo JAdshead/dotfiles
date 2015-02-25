@@ -1,86 +1,137 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# Bin locations
+export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:~/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="clean"
+# use vim as the visual editor
+export VISUAL=vim
+export EDITOR=$VISUAL
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# opts
+bindkey -e
+setopt autocd
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Completion
+autoload -U compinit && compinit
+zstyle ':completion:*' menu select
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# zmv
+autoload zmv
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# Modify the colors and symbols in these variables as desired.
+GIT_PROMPT_SYMBOL="%{$fg[blue]%}GIT"
+GIT_PROMPT_PREFIX="%{$fg[green]%}[%{$reset_color%}"
+GIT_PROMPT_SUFFIX="%{$fg[green]%}]%{$reset_color%}"
+GIT_PROMPT_AHEAD="%{$fg[red]%}ANUM%{$reset_color%}"
+GIT_PROMPT_BEHIND="%{$fg[cyan]%}BNUM%{$reset_color%}"
+GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}⚡︎%{$reset_color%}"
+GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
+GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}●%{$reset_color%}"
+GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to disable command auto-correction.
-# DISABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-
-mount-nas() {
-  mkdir /Volumes/CH
-  mount_afp "afp://jonny:1234@qnap(AFP)._afpovertcp._tcp.local/CH" /Volumes/CH
+# Show Git branch/tag, or name-rev if on detached head
+parse_git_branch() {
+  (git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
 }
 
+# Show different symbols as appropriate for various Git repository states
+parse_git_state() {
 
-source ~/.dotfiles/zshrc
+  # Compose this value via multiple conditional appends.
+  local GIT_STATE=""
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+  local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
+  if [ "$NUM_AHEAD" -gt 0 ]; then
+    GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
+  fi
+
+  local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
+  if [ "$NUM_BEHIND" -gt 0 ]; then
+    GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
+  fi
+
+  local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
+  if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
+    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
+  fi
+
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    GIT_STATE=$GIT_STATE$GIT_PROMPT_UNTRACKED
+  fi
+
+  if ! git diff --quiet 2> /dev/null; then
+    GIT_STATE=$GIT_STATE$GIT_PROMPT_MODIFIED
+  fi
+
+  if ! git diff --cached --quiet 2> /dev/null; then
+    GIT_STATE=$GIT_STATE$GIT_PROMPT_STAGED
+  fi
+
+  if [[ -n $GIT_STATE ]]; then
+    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
+  fi
+
+}
+
+# If inside a Git repository, print its branch and state
+git_prompt_string() {
+  local git_where="$(parse_git_branch)"
+  [ -n "$git_where" ] && echo "$GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[yellow]%}${git_where#(refs/heads/|tags/)}$GIT_PROMPT_SUFFIX"
+}
+
+RPS1='$(git_prompt_string)'
+
+
+
+# Prompt
+# ensure ls colors is unset.
+unset LSCOLORS
+autoload -U promptinit && promptinit
+autoload -U colors && colors
+
+PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~%(1j. %{$fg[red]%}%j.)
+%{$fg[cyan]%}\\ %{$reset_color%}"
+
+
+# Helper functions
+# Helper functions
+isbin() {
+  which "$1" > /dev/null
+}
+grepdir() {
+  grep "$1" * --color -rni
+}
+mkcd() {
+  if [ ! -n "$1" ]; then
+    echo "Enter a directory name"
+  elif [ -d $1 ]; then
+    echo "\`$1' already exists"
+  else
+    mkdir $1 && cd $1
+  fi
+}
+dotenv() {
+  if [ ! -f .env ]; then
+    echo "File .env is missing"
+    echo "Usage: dotenv <command-with-arguments>"
+  else
+    env $(cat .env | grep "^[^#]*=.*" | xargs) "$@"
+  fi
+}
+coffeewatch() {
+  if [ ! -n "$1" ]; then
+    coffee --compile --watch --output js coffee
+  else
+    cd "$1"
+    coffee --compile --watch --output js coffee
+    cd -
+  fi
+}
+
+# RBENV
+# load rbenv if available
+if which rbenv &>/dev/null ; then
+  eval "$(rbenv init - --no-rehash)"
+fi
+
+
+# source alias
+source "${0:a:h}/aliases"
