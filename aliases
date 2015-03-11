@@ -32,6 +32,7 @@ alias hl="heroku logs --tail"
 
 #Rails
 alias rake="bundle exec rake"
+alias rspec="bunlde exec rspec"
 alias be="bundle exec"
 alias rs="bundle exec rails server"
 
