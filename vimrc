@@ -149,7 +149,7 @@ set t_Co=256
 :set smartcase
 " Color scheme
 colorscheme solarized
-set background=dark
+set background=light
 set encoding=utf-8
 
 " Highlight line number of where cursor currently is
