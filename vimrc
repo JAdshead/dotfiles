@@ -18,7 +18,7 @@ let g:session_autoload = 'no'
 " Leader Mappings
 let mapleader = "\<Space>"
 map <Leader>w :update<CR>
-map <Leader>q :qall<CR>
+map <Leader>q :q<CR>
 "
 " RSpec.vim mappings
 map <Leader>t :call RunCurrentSpecFile()<CR>
@@ -28,9 +28,9 @@ map <Leader>a :call RunAllSpecs()<CR>
 map <Leader>h :nohlsearch<CR>
 
 " Toggle nerdtree with F10
-map <F10> :NERDTreeToggle<CR>
+" map <F10> :NERDTreeToggle<CR>
 " Current file in nerdtree
-map <F9> :NERDTreeFind<CR>
+" map <F9> :NERDTreeFind<CR>
 
 " Reduce timeout after <ESC> is recvd. This is only a good idea on fast links.
 set ttimeout
@@ -115,7 +115,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
 let g:rspec_runner = "os_x_iterm"
 
 " Display extra whitespace
@@ -175,7 +174,7 @@ set undoreload=10000
 :xnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
 
 " convert hash rockets
-nmap <leader>rh :%s/\v:(\w+) \=\>/\1:/g<cr>
+" nmap <leader>rh :%s/\v:(\w+) \=\>/\1:/g<cr>
 
 " Tab completion
 " will insert tab at beginning of line,
