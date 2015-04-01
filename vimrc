@@ -115,7 +115,10 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
 let g:rspec_runner = "os_x_iterm"
+let g:rspec_command = "!clear && echo rspec {spec} && bundle exec rspec {spec}"
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
