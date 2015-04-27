@@ -51,7 +51,7 @@ alias dns='dscacheutil -flushcache'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Brew updates.
-alias update='brew update;echo "\nOutdated:\n";brew outdated; brew upgrade; brew cleanup; brew doctor'
+alias update='brew update;echo "\nOutdated:\n";brew outdated; brew upgrade --all; brew cleanup; brew doctor'
 
 # IP addresses
 alias myip="dig +short myip.opendns.com @resolver1.opendns.com"
