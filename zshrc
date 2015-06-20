@@ -94,6 +94,22 @@ PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %
 
 
 # Helper functions
+resize_and_pad() {
+  if [ ! -n "$1" ]; then
+    echo "Please give file to resize and pad (xxxx.jpg)"
+  elif [ "$1" = "help" ]; then
+    echo "example : resize_and_pad filname.jpg (width)x(height) newfilename.png paddingColor(optional)"
+  elif [ ! -n "$2" ]; then
+    echo "Please give size to resize and to pad (500x500)"
+  elif [ ! -n "$3" ]; then
+    echo "Please give new file name (xxxx_2.jpg)" 
+  elif [ ! -n "$4" ]; then
+    convert "$1" -resize "$2" -gravity center -background transparent -extent "$2" "$3"
+  else
+    convert "$1" -resize "$2" -gravity center -background "$4" -extent "$2" "$3"
+  fi
+}
+
 isbin() {
   which "$1" > /dev/null
 }
