@@ -1,7 +1,7 @@
 set shell=/bin/bash
 runtime macros/matchit.vim
 " use old regext engine. speed up ruby syntax highlighting
-set re=1
+" set re=1
 
 set ttyfast
 set lazyredraw
@@ -31,6 +31,8 @@ map <Leader>h :nohlsearch<CR>
 " map <F10> :NERDTreeToggle<CR>
 " Current file in nerdtree
 " map <F9> :NERDTreeFind<CR>
+map <C-n> :NERDTreeToggle<CR>
+map <C-a> :NERDTreeFind<CR>
 
 " Reduce timeout after <ESC> is recvd. This is only a good idea on fast links.
 set ttimeout
@@ -232,7 +234,7 @@ endif
 au BufWritePre *.rb :%s/\s\+$//e
 
 " cmd n, cmd p for fwd/backward in search
-map <C-n> :cn<CR> map <C-p> :cp<CR> 
+" map <C-n> :cn<CR> map <C-p> :cp<CR> 
 " Easy navigation between splits. Instead of ctrl-w + j. Just ctrl-j
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>

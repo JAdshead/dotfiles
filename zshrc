@@ -2,6 +2,7 @@
 export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:~/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport:$PATH
 
 export PATH=~/pebble-dev/PebbleSDK-3.0-dp5/bin:$PATH
+export PATH="$HOME/.node/bin:$PATH"
 
 # use vim as the visual editor
 export VISUAL=vim
@@ -89,7 +90,7 @@ unset LSCOLORS
 autoload -U promptinit && promptinit
 autoload -U colors && colors
 
-PROMPT="%{$fg[cyan]%}----- %{$fg[yellow]%}%n %{$fg[cyan]%}at %{$fg[yellow]%}%m %{$fg[cyan]%}in%{$fg[magenta]%} %~%(1j. %{$fg[red]%}%j.)
+PROMPT="%{$fg[cyan]%}-- %{$fg[yellow]%}%m%{$fg[magenta]%} %~%(1j. %{$fg[red]%}%j.)
 %{$fg[cyan]%}\\ %{$reset_color%}"
 
 
@@ -102,7 +103,7 @@ resize_and_pad() {
   elif [ ! -n "$2" ]; then
     echo "Please give size to resize and to pad (500x500)"
   elif [ ! -n "$3" ]; then
-    echo "Please give new file name (xxxx_2.jpg)" 
+    echo "Please give new file name (xxxx_2.jpg)"
   elif [ ! -n "$4" ]; then
     convert "$1" -resize "$2" -gravity center -background transparent -extent "$2" "$3"
   else
@@ -157,4 +158,3 @@ fi
 
 # source alias
 source "${0:a:h}/aliases"
-
