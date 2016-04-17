@@ -1,9 +1,3 @@
-# Bin locations
-export PATH=.:~/bin:~/.dotfiles/bin:~/.rbenv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:~/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport:$PATH
-
-export PATH=~/pebble-dev/PebbleSDK-3.0-dp5/bin:$PATH
-export PATH="$HOME/.node/bin:$PATH"
-
 # use vim as the visual editor
 export VISUAL=vim
 export EDITOR=$VISUAL
@@ -155,6 +149,8 @@ fi
 if which rbenv &>/dev/null ; then
   eval "$(rbenv init - --no-rehash)"
 fi
+
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 # source alias
 source "${0:a:h}/aliases"

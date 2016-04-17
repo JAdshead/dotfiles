@@ -25,7 +25,7 @@
   mergeoptions = --no-edit
 
 [user]
-  name = Jonny
+  name = Jonathan Adshead
   email = jonny.adshead@gmail.com
 [filter "lfs"]
 	clean = git-lfs clean %f
