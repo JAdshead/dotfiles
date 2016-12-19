@@ -152,5 +152,7 @@ fi
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+eval "$(direnv hook zsh)"
+
 # source alias
 source "${0:a:h}/aliases"
