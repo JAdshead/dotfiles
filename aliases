@@ -1,34 +1,13 @@
 # aliases
 
-alias -g DN="&>/dev/null"
-alias -g DNA="&>/dev/null &"
-alias -g G="| grep"
-alias -g L="| less"
 alias ls='ls -1GAF'
 alias psg='ps aux | grep'
-alias cwp='coffeewatch public &>/dev/null &'
 alias now='date +"%H:%M"'
 alias week='date +%V'
 alias src='source ~/.zshrc'
-alias -g G="| grep"
-alias -g L="| less"
-
-# GIT
-alias g='git'
-alias gpnm='git push nas master'
-alias glnm='git pull nas master'
-alias gphm='git push heroku master'
-alias glhm='git pull heroku master'
-alias gpgm='git push github master'
-alias glgm='git pull github master'
-alias gpom="git push origin master"
-alias glom="git pull origin master"
-alias gpwm='git push web master'
-alias glwm='git pull web master'
 
 # Heroku realtime logs
 alias hl="heroku logs --tail"
-
 
 #Rails
 alias rake="bundle exec rake"
@@ -40,9 +19,8 @@ alias ru='bundle exec rackup'
 alias dber='dotenv bundle exec rackup'
 
 
-#RSPEc 
+#RSPEc
 alias runspec="bundle exec rspec"
-
 
 # aliases for osx
 alias dns='dscacheutil -flushcache'
